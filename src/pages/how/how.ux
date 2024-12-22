@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <img src="/common/toriel.png" style="position: absolute; top: 0px" />
-    <img src="/common/back.png" @click="routeList" style="position: absolute; left: 45px; top: 6px" />
+    <img src="/common/back.png" @click="routeList" style="position: absolute; left: 6px; top: 6px" />
     <div id="max">
       <text style="font-size: 28px; font-weight: bold; color: #fff">最远距离</text>
       <text style="font-size: 20px; font-weight: bold; color: #fff">{{ score }}m</text>
@@ -15,7 +15,7 @@ import storage from "@system.storage"
 
 export default {
   private: {
-    score: 11
+    score: 0
   },
 
   onReady() {
