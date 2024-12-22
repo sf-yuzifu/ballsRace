@@ -1,0 +1,51 @@
+<template>
+  <div class="container">
+    <img src="/common/toriel.png" style="position: absolute; top: 0px" />
+    <img src="/common/back.png" @click="routeList" style="position: absolute; left: 45px; top: 6px" />
+    <div id="max">
+      <text style="font-size: 28px; font-weight: bold; color: #fff">最远距离</text>
+      <text style="font-size: 20px; font-weight: bold; color: #fff">{{ score }}m</text>
+    </div>
+  </div>
+</template>
+
+<script>
+import router from "@system.router"
+import storage from "@system.storage"
+
+export default {
+  private: {
+    score: 11
+  },
+
+  onReady() {
+    storage.get({
+      key: "highScore",
+      default: "0",
+      success: (data) => {
+        this.score = data
+      }
+    })
+  },
+
+  routeList() {
+    router.back()
+  }
+}
+</script>
+
+<style>
+.container {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#max {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  bottom: 42px;
+}
+</style>

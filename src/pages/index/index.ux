@@ -1,0 +1,62 @@
+<template>
+  <div class="demo-page">
+    <img src="/common/how.png" onclick="how" style="position: absolute;left: 45px; top: 6px;"/>
+    <text class="title">滚珠赛道</text>
+    <!-- 点击跳转详情页 -->
+     <img class="btn" src="/common/start.png" onclick="routeDetail"/>
+    <img src="/common/info.png" onclick="info" style="position: absolute;left: 45px; bottom: 6px;"/>
+  </div>
+</template>
+
+<script>
+import router from "@system.router"
+import brightness from "@system.brightness"
+
+export default {
+  private: {},
+
+  routeDetail() {
+    router.push({
+      uri: "/pages/detail"
+    })
+  },
+
+  info() {
+    router.push({
+      uri: "/pages/about"
+    })
+  },
+
+  how() {
+    router.push({
+      uri: "/pages/how"
+    })
+  },
+
+  onReady() {
+    brightness.setKeepScreenOn({
+      keepScreenOn: false
+    })
+  },
+}
+</script>
+
+<style>
+.demo-page {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 40px;
+  text-align: center;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.btn {
+  width: 72px;
+  margin-top: 20px;
+}
+</style>

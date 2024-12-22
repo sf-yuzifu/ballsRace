@@ -1,0 +1,236 @@
+<template>
+  <div class="container" @touchstart="set" @touchend="clear">
+    <div id="ball"></div>
+    <div id="race">
+      <div class="block" for="i in places" tid="{{i[2]}}" style="left:{{i[0]}}px;top:{{i[1]}}px;">
+        <img src="/common/block.png" />
+      </div>
+    </div>
+    <text id="score">{{ score }}</text>
+
+    <div id="finish" style="opacity:{{end == 1 ? '1' : '0'}}">
+      <div id="scoreboard">
+        <text style="color: #fff; font-weight: bold; font-size: 28px">GAME OVER</text>
+        <text style="color: #ddd; font-size: 22px">SCORE {{ score }}</text>
+      </div>
+      <img src="/common/back.png" onclick="routeList"
+        style="position: absolute; left: 45px; top: 6px;display:{{end == 1 ? 'flex' : 'none'}}" />
+      <img src="/common/start.png" onclick="init"
+        style="position: absolute; left: 45px; bottom: 6px;display:{{end == 1 ? 'flex' : 'none'}}" />
+    </div>
+
+    <div id="left" style="display:{{end == 0 ? 'flex' : 'none'}}" @touchstart="left" @touchend="zero"></div>
+    <div id="right" style="display:{{end == 0 ? 'flex' : 'none'}}" @touchstart="right" @touchend="zero"></div>
+  </div>
+</template>
+
+<script>
+import router from "@system.router"
+import brightness from "@system.brightness"
+import storage from "@system.storage"
+
+const someObj = {
+  last_x: 0,
+  a: 0,
+  b: 0,
+  num: 0
+}
+let d, a
+
+export default {
+  private: {
+    places: [],
+    score: 0,
+    end: 0
+  },
+
+  init() {
+    this.places = []
+    this.score = 0
+    this.end = 0
+    someObj.a = 0
+    someObj.b = 0
+    someObj.last_x = 0
+    someObj.num = 0
+    this.ready()
+  },
+
+  routeList() {
+    router.back()
+  },
+
+  onDestroy() {
+    brightness.setKeepScreenOn({
+      keepScreenOn: false
+    })
+  },
+
+  ready() {
+    for (let i = 0; i < 17; i++) {
+      this.places.push([0, 30 * i, "block" + i])
+    }
+    brightness.setKeepScreenOn({
+      keepScreenOn: true
+    })
+    let c = setInterval(() => {
+      for (let i of this.places) {
+        i[1] += 30
+        if (i[1] > 420 && i[1] < 480) {
+          this.score += 1
+          if (this.score > a) {
+            storage.set({
+              key: "highScore",
+              value: this.score.toString()
+            })
+          }
+          if (i[0] < -30 || i[0] > 30) {
+            someObj.b = i[0]
+            clearInterval(c)
+            this.end = 1
+            someObj.num = 0
+            brightness.setKeepScreenOn({
+              keepScreenOn: false
+            })
+          }
+        }
+        if (i[1] > 500) {
+          i[1] = 0
+          if (someObj.a > -4 && someObj.a < 4) {
+            someObj.a += Math.round(Math.random() * 6 - 3)
+          } else if (someObj.a >= 4) {
+            someObj.a = 3
+          } else {
+            someObj.a = -3
+          }
+          if (someObj.last_x + someObj.a > -90 && someObj.last_x + someObj.a < 90) {
+            someObj.last_x += someObj.a
+          } else if (someObj.last_x + someObj.a >= 90) {
+            someObj.last_x = 90
+          } else {
+            someObj.last_x = -90
+          }
+          i[0] = someObj.last_x
+        }
+      }
+    }, 100)
+  },
+
+  onReady() {
+    this.ready()
+    storage.get({
+      key: "highScore",
+      default: "0",
+      success: function (data) {
+        a = parseInt(data)
+      }
+    })
+  },
+
+  async set() {
+    if (this.end) return 0
+    d = setInterval(() => {
+      for (let i of this.places) {
+        if (!someObj.end) {
+          i[0] -= someObj.num * 3
+        }
+      }
+    }, 10)
+  },
+
+  clear() {
+    clearInterval(d)
+  },
+
+  left() {
+    someObj.num = -1
+  },
+
+  right() {
+    someObj.num = 1
+  },
+
+  zero() {
+    someObj.num = 0
+  }
+}
+</script>
+
+<style>
+#score {
+  color: #fff;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  background-color: black;
+}
+
+.container {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#left,
+#right {
+  width: 80px;
+  height: 100%;
+  background-color: transparent;
+  top: 0;
+}
+
+#left {
+  position: absolute;
+  left: 0;
+}
+
+#right {
+  position: absolute;
+  right: 0;
+}
+
+.title {
+  font-size: 20px;
+  text-align: center;
+}
+
+#race {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.block {
+  width: 100%;
+  height: 490px;
+  display: flex;
+  position: absolute;
+  justify-content: space-around;
+  transform: translateX(0);
+}
+
+#ball {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: aliceblue;
+  border-radius: 100%;
+  top: 450px;
+}
+
+#finish {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #0006;
+}
+
+#scoreboard {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+</style>
