@@ -1,0 +1,41 @@
+{
+  "item": {
+    "name": "滚珠赛道",
+    "description": "不要让小球撞上轨道即是胜利，来看看你能走多远吧！",
+    "preview": [
+      "pic/band9.png",
+      "pic/band10.png",
+      "pic/band9pro.png"
+    ],
+    "icon": "icon.png",
+    "source_url": "https://github.com/sf-yuzifu/ballsRace",
+    "author": [
+      {
+        "name": "小鱼yuzifu",
+        "author_url": "https://yzf.moe"
+      },
+      {
+        "name": "桔汁糖浆",
+        "author_url": "https://shequ.codemao.cn/user/148022"
+      }
+    ]
+  },
+  "downloads": {
+    "n66": {
+      "version": "1.2",
+      "file_name": "band9.com.yzf.ballsRace.release.1.2.rpk"
+    },
+    "n67": {
+      "version": "1.2",
+      "file_name": "band9pro.com.yzf.ballsRace.release.1.2.rpk"
+    },
+    "o66nfc": {
+      "version": "1.2",
+      "file_name": "band10.com.yzf.ballsRace.release.1.2.rpk"
+    },
+    "o66": {
+      "version": "1.2",
+      "file_name": "band10.com.yzf.ballsRace.release.1.2.rpk"
+    }
+  }
+}
