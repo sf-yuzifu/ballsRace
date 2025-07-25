@@ -10,7 +10,7 @@
   ],
   "features": [
     {
-      "name": "system.storage"
+      "name": "system.file"
     },
     {
       "name": "system.brightness"

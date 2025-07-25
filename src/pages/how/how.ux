@@ -11,7 +11,7 @@
 
 <script>
 import router from "@system.router"
-import storage from "@system.storage"
+import file from "@system.file"
 
 export default {
   private: {
@@ -19,11 +19,24 @@ export default {
   },
 
   onReady() {
-    storage.get({
-      key: "highScore",
-      default: "0",
-      success: (data) => {
-        this.score = data
+    let theThis = this
+    file.access({
+      uri: "internal://files/highScore.txt",
+      success: function (data) {
+        file.readText({
+          uri: "internal://files/highScore.txt",
+          success: function (data) {
+            theThis.score = data.text
+            console.log(`读取成功！`)
+          },
+          fail: function (data, code) {
+            console.log(`handling fail, code = ${code}`)
+          }
+        })
+      },
+      fail: function (data, code) {
+        console.log(`handling fail, code = ${code}`)
+        this.score = 0
       }
     })
   },
