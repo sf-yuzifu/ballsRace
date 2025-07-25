@@ -39,9 +39,13 @@ export default {
   },
 
   onReady() {
-    brightness.setKeepScreenOn({
-      keepScreenOn: false
-    })
+    try {
+      brightness.setKeepScreenOn({
+        keepScreenOn: false
+      })
+    } catch (error) {
+      console.log("你的设备暂不支持屏幕常亮")
+    }
   },
 }
 </script>

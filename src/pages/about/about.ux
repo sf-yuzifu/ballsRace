@@ -9,7 +9,7 @@
         <text id="version" class="re">{{ver}}</text>
       </div>
       <div id="logo-container">
-        <image id="logo" style="width: 60px" src="/common/logo.png">
+        <image id="logo" style="width: 60px" src="/common/logo.png" />
       </div>
     </div>
     <div id="copyright">
@@ -48,7 +48,6 @@ export default {
 #info {
   flex-direction: column;
   justify-content: center;
-  align-items: space-between;
   border: 3px solid rgba(255, 255, 255, 0.06);
   background-color: #262626;
   border-radius: 20px;
