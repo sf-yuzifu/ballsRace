@@ -43,7 +43,7 @@
 <script>
 import router from "@system.router"
 import brightness from "@system.brightness"
-import storage from "@system.storage"
+import file from "@system.file"
 
 const someObj = {
   last_x: 0,
@@ -101,17 +101,24 @@ export default {
         i[1] += 30
         if (i[1] > 420 && i[1] < 480) {
           this.score += 1
-          if (this.score > a) {
-            storage.set({
-              key: "highScore",
-              value: this.score.toString()
-            })
-          }
           if (i[0] < -30 || i[0] > 30) {
             someObj.b = i[0]
             clearInterval(c)
             this.end = 1
             someObj.num = 0
+            if (this.score > a) {
+              console.log(a, this.score)
+              file.writeText({
+                uri: "internal://files/highScore.txt",
+                text: this.score.toString(),
+                success: function () {
+                  console.log("保存成功！")
+                },
+                fail: function (data, code) {
+                  console.log(`handling fail, code = ${code}`)
+                }
+              })
+            }
             try {
               brightness.setKeepScreenOn({
                 keepScreenOn: false
@@ -144,12 +151,27 @@ export default {
   },
 
   onReady() {
-    this.ready()
-    storage.get({
-      key: "highScore",
-      default: "0",
+    let theThis = this
+    file.access({
+      uri: "internal://files/highScore.txt",
       success: function (data) {
-        a = parseInt(data)
+        file.readText({
+          uri: "internal://files/highScore.txt",
+          success: (data) => {
+            a = parseInt(data.text)
+            theThis.ready()
+          },
+          fail: function (data, code) {
+            a = 0
+            console.log(`handling fail, code = ${code}`)
+            theThis.ready()
+          }
+        })
+      },
+      fail: function (data, code) {
+        a = 0
+        console.log(`handling fail, code = ${code}`)
+        theThis.ready()
       }
     })
   },
