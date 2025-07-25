@@ -16,12 +16,12 @@
       <img
         src="/common/back.png"
         onclick="routeList"
-        style="position: absolute; left: 45px; top: 6px;display:{{ end == 1 ? 'flex' : 'none' }}"
+        style="position: absolute; left: 55px; top: 6px;display:{{ end == 1 ? 'flex' : 'none' }}"
       />
       <img
         src="/common/start.png"
         onclick="init"
-        style="position: absolute; left: 45px; bottom: 6px;display:{{ end == 1 ? 'flex' : 'none' }}"
+        style="position: absolute; left: 55px; bottom: 6px;display:{{ end == 1 ? 'flex' : 'none' }}"
       />
     </div>
 
