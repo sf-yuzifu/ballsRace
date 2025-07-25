@@ -3,7 +3,7 @@
     <img class="button" src="/common/back.png" @click="routeList"/>
     <div id="info">
       <div id="inner">
-        <image id="logo" style="width: 60px" src="/common/logo.png">
+        <image id="logo" style="width: 60px" src="/common/logo.png" />
         <text id="version" class="re">{{ver}}</text>
       </div>
       <text class="bold" style="color: #fff;font-size:33px">滚珠赛道</text>
@@ -39,7 +39,7 @@ export default {
   margin-top: 6px;
   margin-bottom: 8px;
   font-weight: bolder;
-  width: 100px;
+  width: 102px;
   color: #fff;
 }
 

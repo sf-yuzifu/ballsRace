@@ -1,7 +1,7 @@
 {
   "package": "com.yzf.ballsRace",
   "name": "滚珠赛道",
-  "versionName": "1.1",
+  "versionName": "1.2",
   "versionCode": 2,
   "minPlatformVersion": 1000,
   "icon": "/common/logo.png",
