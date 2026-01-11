@@ -1,7 +1,7 @@
 {
   "item": {
     "id": "com.yzf.ballsRace",
-    "restype": "quickapp",
+    "restype": "quick_app",
     "name": "滚珠赛道",
     "description": "不要让小球撞上轨道即是胜利，来看看你能走多远吧！",
     "preview": [
